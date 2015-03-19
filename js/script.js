@@ -4,27 +4,27 @@
 $(document).ready(function(){
     $('#colombia').on('mouseenter',function(){
         $('.colombia').removeClass('hidden')
-    });
-    $('#colombia').on('mouseleave',function(){
-        $('.colombia').addClass('hidden')
+        $('.canada').addClass('hidden')
+        $('.australia').addClass('hidden')
+        $('.espana').addClass('hidden')
     });
     $('#australia').on('mouseenter',function(){
         $('.australia').removeClass('hidden')
-    });
-    $('#australia').on('mouseleave',function(){
-        $('.australia').addClass('hidden')
+        $('.colombia').addClass('hidden')
+        $('.canada').addClass('hidden')
+        $('.espana').addClass('hidden')
     });
     $('#canada').on('mouseenter',function(){
+        $('.australia').addClass('hidden')
+        $('.colombia').addClass('hidden')
         $('.canada').removeClass('hidden')
-    });
-    $('#canada').on('mouseleave',function(){
-        $('.canada').addClass('hidden')
+        $('.espana').addClass('hidden')
     });
     $('#espana').on('mouseenter',function(){
+        $('.australia').addClass('hidden')
+        $('.colombia').addClass('hidden')
+        $('.canada').addClass('hidden')
         $('.espana').removeClass('hidden')
-    });
-    $('#espana').on('mouseleave',function(){
-        $('.espana').addClass('hidden')
     });
 });
 
