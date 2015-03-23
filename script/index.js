@@ -66,7 +66,7 @@ $(function () {
 
     //BEGIN INTRO JS
     $(window).load(function() {
-        introJs().start();
+        //introJs().start();
     });
     //END INTRO JS
 
