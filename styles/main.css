@@ -7030,7 +7030,7 @@ textarea.parsley-error {
     border: 1px solid #EED3D7;
 }
 
-.parsley-errors-list {
+.parsley-errors-list, .has-error {
     margin: 2px 0 3px;
     padding: 0;
     list-style-type: none;
