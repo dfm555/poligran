@@ -1,0 +1,60 @@
+AddDefaultCharset utf-8
+
+ErrorDocument 404 /error404.php
+
+<IfModule mod_headers.c>
+	BrowserMatch MSIE ie
+    Header set X-UA-Compatible "IE=Edge,chrome=1" env=ie
+</IfModule>
+
+<FilesMatch "\.(ttf|otf|eot|woff)$">
+	<IfModule mod_headers.c>
+		Header set Access-Control-Allow-Origin "*"
+	</IfModule>
+</FilesMatch>
+
+<ifmodule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript application/xml application/xhtml+xml application/rss+xml
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+	BrowserMatch ^Mozilla/4\.0[678] no-gzip
+	BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</ifmodule>
+
+<IfModule mod_rewrite.c>
+
+	Options +FollowSymLinks
+
+	RewriteEngine on
+
+    #RewriteCond %{HTTPS} off
+	#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+	RewriteBase /
+
+	# Quitar el www del nombre de dominio
+	#RewriteCond %{HTTP_HOST} ^(www\.doitwiser\.com)(:80)? [NC]
+	#RewriteRule ^(.*) http://doitwiser.com/$1 [R=301,L]
+
+	RewriteCond %{SCRIPT_FILENAME} !-d
+	RewriteCond %{SCRIPT_FILENAME} !-f
+
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+
+	RewriteRule ^logout logout.php [L]
+
+	RewriteRule ^ajax/(.*)/(.*)$ core/core.ajax.php?run=$1&action=$2 [L]
+	RewriteRule ^run/([a-zA-Z0-9-]*)$ core/core.exe.php?action=$1 [L]
+
+	#RewriteRule ^orders/view/([a-zA-Z0-9-]*)$ index.php?load=orders.view&run=$1 [L]
+	#RewriteRule ^orders/edit/([a-zA-Z0-9-]*)$ index.php?load=orders.edit&run=$1 [L]
+
+	#Search
+	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)/search/([a-zA-Z0-9-]*)/(.*)$ index.php?section=$1&load=$2&filter=$3&search=$4 [L]
+	RewriteRule ^([a-zA-Z0-9-]*)/search/([a-zA-Z0-9-]*)/(.*)$ index.php?section=$1&filter=$2&search=$3 [L]
+
+	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)$ index.php?section=$1&load=$2&run=$3 [L]
+	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)$ index.php?section=$1&action=$2 [L]
+	RewriteRule ^([a-zA-Z0-9-]*)$ index.php?section=$1 [L]
+
+</IfModule>

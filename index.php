@@ -1,6 +1,8 @@
 <?php
 require 'config/configs.php';
-session_start(); ?>
+session_start();
+$section = !empty($_GET['section']) ? $_GET['section'] : 'index';
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,15 +31,46 @@ session_start(); ?>
 </head>
 <body>
 <?php
-if(!isset($_SESSION['login_user'])){
- require BASE_VIEWS.'index/login.php';
+if(isset($_SESSION['login_user'])){
+	require BASE_VIEWS.'index/login.php';
 }else{
+	require BASE_INDEX_INCLUDE.'include/header.php'
+	?>
+	<div id="wrapper">
+		<?php
+		require BASE_INDEX_INCLUDE.'include/left.php'
+		?>
+		<div id="page-wrapper">
+			<div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+				<div class="page-header pull-left">
+					<div class="page-title">
+						Dashboard</div>
+				</div>
+				<ol class="breadcrumb page-breadcrumb pull-right">
+					<li><i class="fa fa-home"></i>&nbsp;<a href="dashboard.html">Inicio</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+					<li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+					<li class="active">Dashboard</li>
+				</ol>
+				<div class="clearfix">
+				</div>
+			</div>
+			<!--END TITLE & BREADCRUMB PAGE-->
+			<div class="page-content">
+				<div id="tab-general">
 
-?>
+					<?php
+					require BASE_CONTROLLERS.$section.'Controller.php';
 
-
-
-
+					?>
+				</div>
+			</div>
+		</div>
+		<!--END CONTENT-->
+		<?php
+		require BASE_INDEX_INCLUDE.'include/footer.php'
+		?>
+	</div>
+	<!--END PAGE WRAPPER-->
 <?php
 }
 ?>
@@ -66,11 +99,8 @@ if(!isset($_SESSION['login_user'])){
 <script src="<?php echo BASE_INDEX?>script/data.js"></script>
 <script src="<?php echo BASE_INDEX?>script/drilldown.js"></script>
 <script src="<?php echo BASE_INDEX?>script/exporting.js"></script>
-<!--<script src="<?php echo BASE_INDEX?>script/highcharts-more.js"></script>-->
-<!--<script src="<?php echo BASE_INDEX?>script/charts-highchart-pie.js"></script>-->
-<!--<script src="<?php echo BASE_INDEX?>script/charts-highchart-more.js"></script>-->
-<!--CORE JAVAindexRIPT-->
 <script src="<?php echo BASE_INDEX?>script/parsley.min.js"></script>
 <script src="<?php echo BASE_INDEX?>script/main.js"></script>
+<script src="<?php echo BASE_INDEX?>script/app.js"></script>
 </body>
 </html>
