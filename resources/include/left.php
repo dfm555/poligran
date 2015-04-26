@@ -5,7 +5,7 @@
 		<ul id="side-menu" class="nav">
 
 			<div class="clearfix"></div>
-			<li class="<?php echo ($section == 'index')?'active':''; ?>"><a href="<?php HOST ?>/index"><i class="fa fa-tachometer fa-fw">
+			<li class="<?php echo ($section == 'index')?'active':''; ?>"><a href="<?php HOST ?>/index/index"><i class="fa fa-tachometer fa-fw">
 						<div class="icon-bg bg-orange"></div>
 					</i><span class="menu-title">Dashboard</span></a>
 			</li>

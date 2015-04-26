@@ -9,6 +9,9 @@
 $action = (isset($_GET['action']))?$_GET['action']:'index';
 switch($action){
 	case 'index':
-		require_once BASE_VIEWS.'index/dashboard.php';
+		require_once BASE_VIEWS.'career/index.php';
 		break;
+	case 'edit':
+		require_once BASE_VIEWS.'career/edit.php';
+		break;;
 }
