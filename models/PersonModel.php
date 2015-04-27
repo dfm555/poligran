@@ -5,7 +5,7 @@
  * Date: 26/04/15
  * Time: 05:26 PM
  */
-class PersonModel {
+class PersonModel extends DbTables {
 	static function login($username, $password){
 		$db = new DbTables();
 		$user = $db->cleanSQL($username);
