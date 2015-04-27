@@ -1,7 +1,9 @@
 <?php
-require 'config/configs.php';
+require_once 'config/configs.php';
 session_start();
 $section = !empty($_GET['section']) ? $_GET['section'] : 'index';
+if (isset($_SESSION['userdata'])) { $User = new User(); $User = unserialize($_SESSION['userdata']); }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,7 +20,7 @@ $section = !empty($_GET['section']) ? $_GET['section'] : 'index';
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700">
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,700,300">
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/jquery-ui-1.10.4.custom.min.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/font-awesome.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/animate.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/all.css">
@@ -31,8 +33,9 @@ $section = !empty($_GET['section']) ? $_GET['section'] : 'index';
 </head>
 <body>
 <?php
-if(isset($_SESSION['login_user'])){
-	require BASE_VIEWS.'index/login.php';
+if(!isset($_SESSION['userdata'])){
+	//header('location: /index/login/');
+	require_once BASE_CONTROLLERS.'indexController.php';
 }else{
 	require BASE_RESOURCES_INCLUDE.'include/header.php'
 	?>
@@ -48,6 +51,9 @@ if(isset($_SESSION['login_user'])){
 							switch($section){
 								case 'index':
 									echo 'Dashboard';
+									break;
+								case 'admin':
+									echo 'Administradores';
 									break;
 								case 'teacher':
 									echo 'Profesores';

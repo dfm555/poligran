@@ -23,10 +23,10 @@
 					<li class="dropdown"><a data-hover="dropdown" href="#" class="dropdown-toggle"><i class="fa fa-tasks fa-fw"></i><span class="badge badge-yellow">0</span></a>
 
 					</li>
-					<li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="<?php echo BASE_RESOURCES?>images/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs">Nombre usuario</span>&nbsp;<span class="caret"></span></a>
+					<li class="dropdown topbar-user"><a data-hover="dropdown" href="#" class="dropdown-toggle"><img src="<?php echo BASE_RESOURCES?>images/avatar/48.jpg" alt="" class="img-responsive img-circle"/>&nbsp;<span class="hidden-xs hidden-md"><?php echo $User->name ?></span>&nbsp;<span class="caret"></span></a>
 						<ul class="dropdown-menu dropdown-user pull-right">
 							<li><a href="#"><i class="fa fa-user"></i>Mis datos</a></li>
-							<li><a href="#"><i class="fa fa-key"></i>Cerrar sesión</a></li>
+							<li><a href="/index/logout"><i class="fa fa-key"></i>Cerrar sesión</a></li>
 						</ul>
 					</li>
 				</ul>
