@@ -6,13 +6,11 @@
  * Time: 05:26 PM
  */
 class PersonModel {
-
 	static function login($username, $password){
 		$db = new DbTables();
 		$user = $db->cleanSQL($username);
 		$pass = $db->cleanSQL($password);
-
-		$db->query('SELECT * FROM tbl_person WHERE user_name = "'.$username.'" AND password = "'.$password.'"');
+		$db->query('SELECT * FROM tbl_person WHERE user_name = "'.$user.'" AND password = "'.$pass.'"');
 		$result = $db->query_result()[0];
 		if(is_array($result)){
 			$_SESSION['userdata'] = array(
@@ -28,7 +26,6 @@ class PersonModel {
 			return false;
 		}
 	}
-
 	static function insert($data){
 		$db = new DbTables();
 		$db->query('INSERT INTO tbl_person(
