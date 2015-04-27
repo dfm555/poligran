@@ -25,7 +25,7 @@
 				<td><?php echo $rowAdmin['email'] ?></td>
 				<td><?php echo $rowAdmin['type'] ?></td>
 				</tr>
-				<?php $count++ endforeach;?>
+				<?php $count++; endforeach;?>
 				</tbody>
 			</table>
 		</div>
