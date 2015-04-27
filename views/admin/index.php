@@ -17,7 +17,15 @@
 				</tr>
 				</thead>
 				<tbody>
-
+				<?php $count = 1; foreach($admins as $rowAdmin): ?>
+				<tr>
+				<td><?php echo $count ?></td>
+				<td><?php echo $rowAdmin['identification'] ?></td>
+				<td><?php echo $rowAdmin['full_name'] ?></td>
+				<td><?php echo $rowAdmin['email'] ?></td>
+				<td><?php echo $rowAdmin['type'] ?></td>
+				</tr>
+				<?php $count++ endforeach;?>
 				</tbody>
 			</table>
 		</div>
