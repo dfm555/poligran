@@ -9,7 +9,11 @@
 $action = (isset($_GET['action']))?$_GET['action']:'index';
 switch($action){
 	case 'index':
-		require_once BASE_VIEWS.'index/dashboard.php';
+		if(isset($_SESSION['userdata'])){
+			require_once BASE_VIEWS.'index/dashboard.php';
+		}else{
+			header('location: /index/login');
+		}
 		break;
 	case 'login':
 		if(isset($_SESSION['userdata'])){
