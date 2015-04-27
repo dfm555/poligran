@@ -57,7 +57,7 @@ class DbTables {
 	}
 
 	function cleanSQL($data, $encrypt = false) {
-
+		$this->dbConnect();
 		if(get_magic_quotes_gpc()) {
 			if(is_array($data)) {
 				return array_map(array($this, 'cleanSQL'), $data);
