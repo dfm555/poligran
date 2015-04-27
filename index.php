@@ -2,6 +2,10 @@
 require_once 'config/configs.php';
 session_start();
 $section = !empty($_GET['section']) ? $_GET['section'] : 'index';
+if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	require BASE_CONTROLLERS.$section.'Controller.php';
+}else{
 ?>
 <!doctype html>
 <html lang="en">
@@ -128,3 +132,4 @@ if(!isset($_SESSION['userdata'])){
 <script src="<?php echo BASE_RESOURCES?>script/app.js"></script>
 </body>
 </html>
+<?php }?>

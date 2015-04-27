@@ -14,20 +14,31 @@ switch($action){
 	case 'findBy':
 		break;
 	case 'insert':
-		$dataPerson = array(
-			'identification'=>$_POST['identification'],
-			'full_name'=>$_POST['full_name'],
-			'date_of_birth'=>$_POST['date_of_birth'],
-			'email'=>$_POST['email'],
-			'user_name'=>$_POST['user_name'],
-			'password'=>$_POST['password']
-		);
-		PersonModel::insert($dataPerson);
-		$dataAdmin = array(
-			'type'=>$_POST['type'],
-			'id_person'=>PersonModel::insert_id()
-		);
-		AdminModel::insert($dataAdmin);
+		if(count($_POST) > 0){
+			header('Content-type: application/json');
+			$dataPerson = array(
+				'identification'=>$_POST['identification'],
+				'full_name'=>$_POST['fullname'],
+				'date_of_birth'=>$_POST['datebirth'],
+				'email'=>$_POST['email'],
+				'user_name'=>$_POST['username'],
+				'password'=>$_POST['password']
+			);
+			$personId = PersonModel::insert($dataPerson);
+
+			$dataAdmin = array(
+				'type'=>'ADMIN',
+				'id_person'=>$personId
+			);
+			$adminId = AdminModel::insert($dataAdmin);
+			if($adminId){
+				echo  json_encode('success');
+			}else{
+				echo json_encode('error');
+			}
+		}else{
+			header('location: /admin/index');
+		}
 		break;
 	case 'update':
 

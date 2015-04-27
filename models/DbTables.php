@@ -13,7 +13,7 @@ class DbTables {
 
 	}
 
-	public function dbConnect() {
+	private function dbConnect() {
 		if(!isset($this->conexion)) {
 			$this->conexion = (mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD));
 			if($this->conexion) {

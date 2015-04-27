@@ -9,8 +9,6 @@ class StudentModel extends DbTables {
 
 	static function studentData($id_person){
 		$db = new DbTables();
-		$db->dbConnect();
-
 		$db->query('SELECT * FROM tbl_student WHERE id_student ='.(int)$id_person);
 		$result = $db->query_result()[0];
 		if(is_array($result)){

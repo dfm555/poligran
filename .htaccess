@@ -53,7 +53,7 @@ ErrorDocument 404 /error404.php
 	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)/search/([a-zA-Z0-9-]*)/(.*)$ index.php?section=$1&load=$2&filter=$3&search=$4 [L]
 	RewriteRule ^([a-zA-Z0-9-]*)/search/([a-zA-Z0-9-]*)/(.*)$ index.php?section=$1&filter=$2&search=$3 [L]
 
-	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)$ index.php?section=$1&load=$2&run=$3 [L]
+	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)$ index.php?section=$1&action=$2&result=$3 [L]
 	RewriteRule ^([a-zA-Z0-9-]*)/([a-zA-Z0-9-]*)$ index.php?section=$1&action=$2 [L]
 	RewriteRule ^([a-zA-Z0-9-]*)$ index.php?section=$1 [L]
 

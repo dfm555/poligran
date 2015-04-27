@@ -9,8 +9,6 @@ class TeacherModel extends DbTables {
 
 	static function teacherData($id_person){
 		$db = new DbTables();
-		$db->dbConnect();
-
 		$db->query('SELECT * FROM tbl_teacher WHERE id_teacher ='.(int)$id_person);
 		$result = $db->query_result()[0];
 		if(is_array($result)){

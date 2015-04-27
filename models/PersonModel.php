@@ -9,8 +9,6 @@ class PersonModel {
 
 	static function login($username, $password){
 		$db = new DbTables();
-		$db->dbConnect();
-
 		$user = $db->cleanSQL($username);
 		$pass = $db->cleanSQL($password);
 
@@ -33,7 +31,6 @@ class PersonModel {
 
 	static function insert($data){
 		$db = new DbTables();
-		$db->dbConnect();
 		$db->query('INSERT INTO tbl_person(
 						identification, full_name, date_of_birth, email, user_name, password
 						) VALUES (
@@ -44,11 +41,6 @@ class PersonModel {
 						"'.$data['user_name'].'",
 						"'.$data['password'].'"
 						)');
-	}
-
-	static function insert_id(){
-		$db = new DbTables();
-		$db->dbConnect();
 		return $db->query_insert_id();
 	}
 }
