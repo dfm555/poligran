@@ -20,7 +20,7 @@ switch($action){
 			header('location: /index/index');
 		}else{
 			if(count($_POST)>0){
-				$login = PersonModel::login($_POST['username'],$_POST['username']);
+				$login = PersonModel::login($_POST['username'],$_POST['password']);
 				AdminModel::dataAdmin($login);
 				StudentModel::studentData($login);
 				TeacherModel::teacherData($login);
