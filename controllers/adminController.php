@@ -9,7 +9,7 @@
 $action = (isset($_GET['action']))?$_GET['action']:'index';
 switch($action){
 	case 'index':
-		$admins = PersonModel::getAll();
+		$admins = AdminModel::getAll();
 		require_once BASE_VIEWS.'admin/index.php';
 		break;
 	case 'findBy':
