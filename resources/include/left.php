@@ -9,11 +9,14 @@
 						<div class="icon-bg bg-orange"></div>
 					</i><span class="menu-title">Dashboard</span></a>
 			</li>
+			<?php
+			if($_SESSION['userdata'][0]['type'] == 'ADMIN' || $_SESSION['userdata'][0]['type'] == 'SUPER ADMIN'): ?>
 			<li class="<?php echo ($section == 'admin')?'active':''; ?>"><a href="<?php HOST ?>/admin"><i class="fa fa-user-plus fa-fw">
 						<div class="icon-bg bg-pink"></div>
 					</i><span class="menu-title">Administradores</span></a>
 
 			</li>
+			<?php endif?>
 			<li class="<?php echo ($section == 'teacher')?'active':''; ?>"><a href="<?php HOST ?>/teacher"><i class="fa fa-group fa-fw">
 						<div class="icon-bg bg-pink"></div>
 					</i><span class="menu-title">Profesores</span></a>

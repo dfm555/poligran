@@ -15,6 +15,7 @@
 						<div class="col-md-9 text-center">
 							<?php if(isset($error)): ?>
 								<div class="alert alert-danger alert-dismissable">
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
 									<strong>Error!</strong> usuario o contraseña incorrecto, intente de nuevo.</div>
 							<?php endif ?>
 							<h1>

@@ -2,8 +2,6 @@
 require_once 'config/configs.php';
 session_start();
 $section = !empty($_GET['section']) ? $_GET['section'] : 'index';
-if (isset($_SESSION['userdata'])) { $User = new User(); $User = unserialize($_SESSION['userdata']); }
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -50,31 +48,32 @@ if(!isset($_SESSION['userdata'])){
 						<?php
 							switch($section){
 								case 'index':
-									echo 'Dashboard';
+									$title = 'Dashboard';
 									break;
 								case 'admin':
-									echo 'Administradores';
+									$title = 'Administradores';
 									break;
 								case 'teacher':
-									echo 'Profesores';
+									$title = 'Profesores';
 									break;
 								case 'student':
-									echo 'Estudiantes';
+									$title = 'Estudiantes';
 									break;
 								case 'career':
-									echo 'Carreras';
+									$title = 'Carreras';
 									break;
 								case 'subject':
-									echo 'Materias';
+									$title = 'Materias';
 									break;
 							}
+						echo $title;
 						?>
 					</div>
 				</div>
 				<ol class="breadcrumb page-breadcrumb pull-right">
-					<li><i class="fa fa-home"></i>&nbsp;<a href="dashboard.html">Inicio</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-					<li class="hidden"><a href="#">Dashboard</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-					<li class="active">Dashboard</li>
+					<li><i class="fa fa-home"></i>&nbsp;<a href="<?php HOST ?>/index/index">Inicio</a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+					<li class="hidden"><a href="#"><?php echo $title ?></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+					<li class="active"><?php echo $title ?></li>
 				</ol>
 				<div class="clearfix">
 				</div>
@@ -92,7 +91,7 @@ if(!isset($_SESSION['userdata'])){
 		</div>
 		<!--END CONTENT-->
 		<?php
-		require BASE_RESOURCES_INCLUDE.'include/footer.php'
+		require BASE_RESOURCES_INCLUDE.'include/footer.php';
 		?>
 	</div>
 	<!--END PAGE WRAPPER-->
