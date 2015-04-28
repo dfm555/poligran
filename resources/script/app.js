@@ -68,6 +68,8 @@ $(document).ready(function(){
 		BootstrapDialog.show({
 			onshown:function(){
 				$('#form1').parsley();
+			},onhidden:function(){
+				location.reload();
 			},
 			message: form,
 			type: BootstrapDialog.TYPE_DEFAULT,
