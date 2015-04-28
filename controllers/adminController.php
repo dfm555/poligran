@@ -12,10 +12,12 @@ switch($action){
 		$admins = AdminModel::getAll();
 		require_once BASE_VIEWS.'admin/index.php';
 		break;
-	case 'findBy':
+	case 'findbyid':
+		$adminData = AdminModel::findbyid($_POST['id']);
+		echo json_encode($adminData);
 		break;
 	case 'insert':
-		if(count($_POST) > 0){
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
 				'identification'=>$_POST['identification'],
@@ -42,6 +44,49 @@ switch($action){
 		}
 		break;
 	case 'update':
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			header('Content-type: application/json');
+			$dataPerson = array(
+				'identification'=>$_POST['identification'],
+				'fullname'=>$_POST['fullname'],
+				'datebirth'=>$_POST['datebirth'],
+				'email'=>$_POST['email'],
+				'id_person'=>$_POST['id']
+			);
+			$personId = PersonModel::update($dataPerson);
 
+			if(isset($_POST['password']) && $_POST['password']!=''){
+				$dataPerson = array(
+					'password'=>$_POST['password'],
+					'id_person'=>$_POST['id']
+				);
+				$personId = PersonModel::updatePassword($dataPerson);
+			}
+			if($personId){
+				echo  json_encode('success');
+			}else{
+				echo json_encode('error');
+			}
+		}else{
+			header('location: /admin/index');
+		}
+		break;;
+	case 'delete':
+		if($_SERVER['REQUEST_METHOD'] == 'POST'){
+			header('Content-type: application/json');
+			$dataPerson = array(
+				'id_person'=>$_POST['id'],
+				'id_admin'=>$_POST['user']
+			);
+			$adminId = AdminModel::delete($dataPerson);
+			$personId = PersonModel::delete($dataPerson);
+			if($personId){
+				echo  json_encode('success');
+			}else{
+				echo json_encode('error');
+			}
+		}else{
+			header('location: /admin/index');
+		}
 		break;;
 }

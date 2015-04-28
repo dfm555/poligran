@@ -40,4 +40,27 @@ class PersonModel extends DbTables {
 						)');
 		return $db->query_insert_id();
 	}
+	static function update($data){
+		$db = new DbTables();
+		$db->query('UPDATE tbl_person SET
+						full_name = "'.$data['fullname'].'",
+						date_of_birth = "'.$data['datebirth'].'",
+						email = "'.$data['email'].'"
+						WHERE id_person = "'.$data['id_person'].'"');
+		return true;
+	}
+
+	static function updatePassword($data){
+		$db = new DbTables();
+		$db->query('UPDATE tbl_person SET
+						password = "'.$data['password'].'"
+						WHERE id_person = "'.$data['id_person'].'"');
+		return true;
+	}
+
+	static function delete($data) {
+		$db = new DbTables();
+		$db->query('DELETE FROM tbl_person WHERE id_person = "' . $data['id_person'] . '"');
+		return true;
+	}
 }
