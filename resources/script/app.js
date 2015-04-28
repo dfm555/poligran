@@ -117,7 +117,7 @@ $(document).ready(function(){
 		});
 
 	});
-	$('#editAdmin').on('click',function(){
+	$('.editAdmin').on('click',function(){
 		var data = $(this).data('id');
 		var form = '<div class = "msj">\
         </div>\
@@ -249,7 +249,7 @@ $(document).ready(function(){
 			}]
 		});
 	});
-	$('#deleteAdmin').on('click',function(){
+	$('.deleteAdmin').on('click',function(){
 		var data = $(this).data('id');
 		var user = $(this).data('user');
 		BootstrapDialog.show({

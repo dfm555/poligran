@@ -29,10 +29,10 @@
 				<td><?php echo $rowAdmin['type'] ?></td>
 				<td>
 					<div class="btn-group-xs">
-						<button id="editAdmin" data-id="<?php echo $rowAdmin['id_person'] ?>" class="btn btn-blue">
+						<button id="" data-id="<?php echo $rowAdmin['id_person'] ?>" class="btn btn-blue editAdmin">
 							<i class="fa fa-edit"></i>
 						</button>
-						<button id="deleteAdmin" data-user="<?php echo $rowAdmin['id_admin'] ?>" data-id="<?php echo $rowAdmin['id_person'] ?>" class="btn btn-danger">
+						<button id="" data-user="<?php echo $rowAdmin['id_admin'] ?>" data-id="<?php echo $rowAdmin['id_person'] ?>" class="btn btn-danger deleteAdmin">
 							<i class="fa fa-trash-o"></i>
 						</button>
 					</div>
