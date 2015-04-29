@@ -17,6 +17,7 @@
 					<th>Teléfono</th>
 					<th>Categoría</th>
 					<th>Valor hora</th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
