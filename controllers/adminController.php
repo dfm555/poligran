@@ -88,5 +88,5 @@ switch($action){
 		}else{
 			header('location: /admin/index');
 		}
-		break;;
+		break;
 }

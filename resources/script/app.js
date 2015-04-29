@@ -197,7 +197,6 @@ $(document).ready(function(){
 							$('#datebirth').val(val.date_of_birth);
 							$('#email').val(val.email);
 							$('#username').val(val.user_name);
-							$('#id').val(val.id_person);
 						});
 					}
 				});
@@ -296,7 +295,8 @@ $(document).ready(function(){
 	});
 
 	$('#addTeacher').on('click',function(){
-		var form = '<form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+		var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
         <div class="form-group">\
@@ -359,7 +359,7 @@ $(document).ready(function(){
         <div class="form-group">\
         <label class="control-label" for="office">\
         Oficina</label>\
-        <input type="password" name="office" class="form-control" placeholder="" id="office" required/>\
+        <input type="text" name="office" class="form-control" placeholder="" id="office" required/>\
         </div>\
         </div>\
         <div class="col-md-3">\
@@ -388,6 +388,8 @@ $(document).ready(function(){
 		BootstrapDialog.show({
 			onshown:function(){
 				$('#form1').parsley();
+			},onhidden:function(){
+				location.reload();
 			},
 			message: form,
 			type: BootstrapDialog.TYPE_DEFAULT,
@@ -400,17 +402,256 @@ $(document).ready(function(){
 				label: 'Guardar',
 				cssClass: 'btn-default',
 				action: function(dialog) {
+					$('#form1').parsley().validate();
 					if( $('#form1').parsley().isValid()){
-						alert();
-					}else{
-						dialog.getModalContent().find('form').submit();
-
+						$.ajax({
+							type: 'POST',
+							url: '/teacher/insert',
+							data: {
+								'identification': $('#identification').val(),
+								'fullname': $('#fullname').val(),
+								'datebirth': $('#datebirth').val(),
+								'email': $('#email').val(),
+								'username': $('#username').val(),
+								'password': $('#password').val(),
+								'office': $('#office').val(),
+								'phone': $('#phone').val(),
+								'category': $('#category').val(),
+								'amounthour': $('#amounthour').val()
+							},
+							dataType: 'json',
+							success: function( result ){
+								if(result == 'success'){
+									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> El profesor se creo con éxito.\
+									</div>');
+								}else{
+									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> EL profesor ya existe o hay valores repetidos con otro profesor.\
+									</div>');
+								}
+							}
+						});
 					}
-
 				}
 			}]
 		});
-
+	});
+	$('.editTeacher').on('click',function(){
+		var data = $(this).data('id');
+		var user =  $(this).data('user');
+		var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+            <div class="row">\
+        <div class="col-md-4">\
+        <div class="form-group">\
+        <label class="control-label" for="identification">\
+        No. Identificación</label>\
+        <input readonly type="text" name="identification" class="form-control" placeholder="" id="identification" data-parsley-type="integer" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-8">\
+        <div class="form-group">\
+        <label class="control-label" for="fullname">\
+        Nombre Completo</label>\
+        <input type="text" class="form-control" placeholder="" id="fullname" required>\
+        </div>\
+        </div>\
+        </div>\
+       <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="datebirth">\
+        Fecha de nacimiento</label>\
+        <input type="text" name="datebirth" class="form-control" placeholder="" id="datebirth" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="email">\
+        Correo electrónico</label>\
+        <input type="text" class="form-control" placeholder="" id="email" data-parsley-type="email" required>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-12">\
+        <div class="form-group">\
+        <label class="control-label" for="username">\
+        Nombre de usuario</label>\
+        <input readonly type="text" name="username" class="form-control" placeholder="" id="username" required/>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="firstpassword">\
+        Contraseña</label>\
+        <input type="password" name="firstpassword" class="form-control" placeholder="" id="firstpassword"/>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="password">\
+        Repita la contraseña</label>\
+        <input type="password" class="form-control" placeholder="" id="password" data-parsley-equalto="#firstpassword">\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-3">\
+        <div class="form-group">\
+        <label class="control-label" for="office">\
+        Oficina</label>\
+        <input type="text" name="office" class="form-control" placeholder="" id="office" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-3">\
+        <div class="form-group">\
+        <label class="control-label" for="phone">\
+        Teléfono</label>\
+        <input type="text" class="form-control" placeholder="" id="phone" required>\
+        </div>\
+        </div>\
+        <div class="col-md-3">\
+        <div class="form-group">\
+        <label class="control-label" for="category">\
+        Categoría</label>\
+        <input type="text" name="category" class="form-control" placeholder="" id="category" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-3">\
+        <div class="form-group">\
+        <label class="control-label" for="amounthour">\
+        Valor hora</label>\
+        <input type="text" class="form-control" placeholder="" id="amounthour" required>\
+        </div>\
+        </div>\
+        </div>\
+            </form>';
+		BootstrapDialog.show({
+			onshown:function(){
+				$('#form1').parsley();
+				$.ajax({
+					type: 'POST',
+					url: '/teacher/findbyid',
+					data: {
+						'id': data
+					},
+					dataType: 'json',
+					success: function( result ){
+						$.each(result, function(i,val){
+							$('#identification').val(val.identification);
+							$('#fullname').val(val.full_name);
+							$('#datebirth').val(val.date_of_birth);
+							$('#email').val(val.email);
+							$('#username').val(val.user_name);
+							$('#office').val(val.office);
+							$('#phone').val(val.phone_number);
+							$('#category').val(val.category);
+							$('#amounthour').val(val.amount_hour);
+						});
+					}
+				});
+			},onhidden:function(){
+				location.reload();
+			},
+			message: form,
+			type: BootstrapDialog.TYPE_DEFAULT,
+			cssClass: 'md-row-dialog',
+			closable: true,
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			title: 'Datos Profesor',
+			buttons: [{
+				label: 'Guardar',
+				cssClass: 'btn-default',
+				action: function(dialog) {
+					$('#form1').parsley().validate();
+					if( $('#form1').parsley().isValid()){
+						$.ajax({
+							type: 'POST',
+							url: '/teacher/update',
+							data: {
+								'identification': $('#identification').val(),
+								'fullname': $('#fullname').val(),
+								'datebirth': $('#datebirth').val(),
+								'email': $('#email').val(),
+								'password': $('#password').val(),
+								'office': $('#office').val(),
+								'phone': $('#phone').val(),
+								'category': $('#category').val(),
+								'amounthour': $('#amounthour').val(),
+								'id':data,
+								'user':user
+							},
+							dataType: 'json',
+							success: function( result ){
+								if(result == 'success'){
+									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> El profesor se actualizó con éxito.\
+									</div>');
+								}else{
+									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> Hay valores repetidos con otro profesor.\
+									</div>');
+								}
+							}
+						});
+					}
+				}
+			}]
+		});
+	});
+	$('.deleteTeacher').on('click',function(){
+		var data = $(this).data('id');
+		var user = $(this).data('user');
+		BootstrapDialog.show({
+			message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+			type: BootstrapDialog.TYPE_DANGER,
+			size: BootstrapDialog.SIZE_SMALL,
+			cssClass: 'modal',
+			closable: true,
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			title: 'Datos Profesor',
+			buttons: [{
+				label: 'Si',
+				cssClass: 'btn-danger',
+				action: function(dialog) {
+					$.ajax({
+						type: 'POST',
+						url: '/teacher/delete',
+						data: {
+							'id':data,
+							'user':user
+						},
+						dataType: 'json',
+						success: function( result ){
+							if(result == 'success'){
+								location.reload();
+							}else{
+								$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> EL teacher tiene dependencias y no se puede eliminar.\
+									</div>');
+							}
+						}
+					});
+				}
+			},{
+				label:'No',
+				cssClass: 'btn-blue',
+				action: function(dialog) {
+					dialog.close();
+				}
+			}]
+		});
 	});
 
 	$('#addStudent').on('click',function(){

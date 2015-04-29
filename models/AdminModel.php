@@ -7,12 +7,13 @@
  */
 class AdminModel extends DbTables {
 	
-	public static function getAll(){
+	static function getAll(){
 		$db = new DbTables();
 		$db->query('SELECT p.*, a.id_admin, a.type FROM tbl_admin a, tbl_person p WHERE a.id_person = p.id_person');
 		return $db->query_result();
 	}
-	public static function findbyid($id){
+
+	static function findbyid($id){
 		$db = new DbTables();
 		$db->query('SELECT p.id_person,
 						p.identification,
