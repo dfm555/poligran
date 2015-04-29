@@ -318,7 +318,7 @@ $(document).ready(function(){
         <div class="form-group">\
         <label class="control-label" for="datebirth">\
         Fecha de nacimiento</label>\
-        <input type="text" name="datebirth" class="form-control" placeholder="" id="datebirth" required/>\
+        <input type="date" name="datebirth" class="form-control" placeholder="" id="datebirth" required/>\
         </div>\
         </div>\
         <div class="col-md-6">\
@@ -465,7 +465,7 @@ $(document).ready(function(){
         <div class="form-group">\
         <label class="control-label" for="datebirth">\
         Fecha de nacimiento</label>\
-        <input type="text" name="datebirth" class="form-control" placeholder="" id="datebirth" required/>\
+        <input type="date" name="datebirth" class="form-control" placeholder="" id="datebirth" required/>\
         </div>\
         </div>\
         <div class="col-md-6">\
