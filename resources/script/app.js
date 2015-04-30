@@ -1455,11 +1455,11 @@ $(document).ready(function () {
                                     code: $('#code').val(),
                                     name: $('#name').val(),
                                     credits: $('#credits').val(),
-                                    cycle: $('#cycle').val(),
+                                    cycle: $('#cycles').val(),
                                     room: $('#room').val(),
                                     description: $('#description').val(),
                                     hours: $('#hours').val(),
-                                    place: $('#place').val(),
+                                    place: $('#places').val(),
                                     id: data
                                 },
                                 dataType: 'json',
@@ -1467,7 +1467,7 @@ $(document).ready(function () {
                                     if (result == 'success') {
                                         $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
-									<strong>Muy bien!</strong> La materia se actualiz� con éxito.\
+									<strong>Muy bien!</strong> La materia se actualiz&oacute; con éxito.\
 									</div>');
                                     } else {
                                         $('.msj').html('<div class="alert alert-danger alert-dismissable">\
