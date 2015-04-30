@@ -13,7 +13,7 @@ switch ($action) {
         require_once BASE_VIEWS . 'subject/index.php';
         break;
     case 'findbyid':
-        $subjectData = CareerModel::findbyid($_POST['id']);
+        $subjectData = SubjectModel::findbyid($_POST['id']);
         echo json_encode($subjectData);
         break;
     case 'insert':

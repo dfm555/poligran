@@ -18,6 +18,7 @@
 					<th>Descripción</th>
 					<th>Horas semanales</th>
 					<th>Cupos</th>
+                                        <th></th>
 				</tr>
 				</thead>
 				<tbody>

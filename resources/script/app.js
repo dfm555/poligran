@@ -1311,11 +1311,11 @@ $(document).ready(function () {
                                     code: $('#code').val(),
                                     name: $('#name').val(),
                                     credits: $('#credits').val(),
-                                    cycle: $('#cycle').val(),
+                                    cycle: $('#cycles').val(),
                                     room: $('#room').val(),
                                     description: $('#description').val(),
                                     hours: $('#hours').val(),
-                                    place: $('#place').val()
+                                    place: $('#places').val()
                                 },
                                 dataType: 'json',
                                 success: function (result) {
@@ -1423,12 +1423,12 @@ $(document).ready(function () {
                         $.each(result, function (i, val) {
                             $('#code').val(val.code);
                             $('#name').val(val.name);
-                            $('#credits').val(val.credits);
-                            $('#cycle').val(val.cycle);
+                            $('#credits').val(val.quantity_credits);
+                            $('#cycles').val(val.cycle);
                             $('#room').val(val.room);
                             $('#description').val(val.description);
                             $('#hours').val(val.weekly_hours);
-                            $('#place').val(val.place_available);
+                            $('#places').val(val.place_available);
                         });
                     }
                 });
