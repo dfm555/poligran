@@ -11,7 +11,5 @@ switch($action){
 	case 'index':
 		require_once BASE_VIEWS.'subject/index.php';
 		break;
-	case 'edit':
-		require_once BASE_VIEWS.'subject/edit.php';
-		break;;
+
 }
