@@ -3,9 +3,9 @@
  * Created by PhpStorm.
  * User: root
  * Date: 26/04/15
- * Time: 05:23 PM
+ * Time: 05:26 PM
  */
-class StudentModel extends DbTables {
+class SubjectModel extends DbTables {
 	static function getAll(){
 		$db = new DbTables();
 		$db->query('SELECT p.*,

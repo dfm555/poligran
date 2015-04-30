@@ -14,11 +14,31 @@
 					<th>Nombre completo</th>
 					<th>Correo electrónico</th>
 					<th>Apodo</th>
-					<th>Carrera</th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
-
+				<?php $count = 1;
+				if(is_array($students)):
+					foreach($students as $rowStudent): ?>
+						<tr>
+							<td><?php echo $count ?></td>
+							<td><?php echo $rowStudent['identification'] ?></td>
+							<td><?php echo $rowStudent['full_name'] ?></td>
+							<td><?php echo $rowStudent['email'] ?></td>
+							<td><?php echo $rowStudent['nickname'] ?></td>
+							<td>
+								<div class="btn-group-xs">
+									<button id="" data-user="<?php echo $rowStudent['id_student'] ?>" data-id="<?php echo $rowStudent['id_person'] ?>" class="btn btn-blue editStudent">
+										<i class="fa fa-edit"></i>
+									</button>
+									<button id="" data-user="<?php echo $rowStudent['id_student'] ?>" data-id="<?php echo $rowStudent['id_person'] ?>" class="btn btn-danger deleteStudent">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</div>
+							</td>
+						</tr>
+						<?php $count++; endforeach; endif?>
 				</tbody>
 			</table>
 		</div>
