@@ -39,7 +39,6 @@ class CareerModel extends DbTables {
 		$db = new DbTables();
 		$db->query('UPDATE tbl_career SET name ="'.$data['name'].'",
 		quantity_credits ="'.$data['credits'].'",
-		name ="'.$data['name'].'",
 		amount ="'.$data['amount'].'",
 		quantity_semester ="'.$data['semester'].'"
 			WHERE id_career = "'.$data['id_career'].'"');

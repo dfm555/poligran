@@ -1,10 +1,10 @@
 /**
  * Created by root on 23/03/15.
  */
-$(document).ready(function(){
-	/*Modals forms*/
-	$('#addAdmin').on('click',function(){
-		var form = '<div class = "msj">\
+$(document).ready(function () {
+    /*Modals forms*/
+    $('#addAdmin').on('click', function () {
+        var form = '<div class = "msj">\
         </div>\
         <form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
@@ -65,61 +65,61 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Administrador',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/admin/insert',
-							data: {
-								'identification': $('#identification').val(),
-								'fullname': $('#fullname').val(),
-								'datebirth': $('#datebirth').val(),
-								'email': $('#email').val(),
-								'username': $('#username').val(),
-								'password': $('#password').val()
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Administrador',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/admin/insert',
+                                data: {
+                                    'identification': $('#identification').val(),
+                                    'fullname': $('#fullname').val(),
+                                    'datebirth': $('#datebirth').val(),
+                                    'email': $('#email').val(),
+                                    'username': $('#username').val(),
+                                    'password': $('#password').val()
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> El administrador se creo con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL administrador ya existe o hay valores repetidos con otro administrador.\
 									</div>');
-								}
-							}
-						});
-					}
+                                    }
+                                }
+                            });
+                        }
 
-				}
-			}]
-		});
+                    }
+                }]
+        });
 
-	});
-	$('.editAdmin').on('click',function(){
-		var data = $(this).data('id');
-		var form = '<div class = "msj">\
+    });
+    $('.editAdmin').on('click', function () {
+        var data = $(this).data('id');
+        var form = '<div class = "msj">\
         </div>\
         <form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
@@ -180,122 +180,122 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-				$.ajax({
-					type: 'POST',
-					url: '/admin/findbyid',
-					data: {
-						'id': data
-					},
-					dataType: 'json',
-					success: function( result ){
-						$.each(result, function(i,val){
-							$('#identification').val(val.identification);
-							$('#fullname').val(val.full_name);
-							$('#datebirth').val(val.date_of_birth);
-							$('#email').val(val.email);
-							$('#username').val(val.user_name);
-						});
-					}
-				});
-			},
-			onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Administrador',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/admin/update',
-							data: {
-								'identification': $('#identification').val(),
-								'fullname': $('#fullname').val(),
-								'datebirth': $('#datebirth').val(),
-								'email': $('#email').val(),
-								'password': $('#password').val(),
-								'id':data
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/findbyid',
+                    data: {
+                        'id': data
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result, function (i, val) {
+                            $('#identification').val(val.identification);
+                            $('#fullname').val(val.full_name);
+                            $('#datebirth').val(val.date_of_birth);
+                            $('#email').val(val.email);
+                            $('#username').val(val.user_name);
+                        });
+                    }
+                });
+            },
+            onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Administrador',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/admin/update',
+                                data: {
+                                    'identification': $('#identification').val(),
+                                    'fullname': $('#fullname').val(),
+                                    'datebirth': $('#datebirth').val(),
+                                    'email': $('#email').val(),
+                                    'password': $('#password').val(),
+                                    'id': data
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> El administrador se actualizó con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL administrador ya existe o hay valores repetidos con otro usuario.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
-	});
-	$('.deleteAdmin').on('click',function(){
-		var data = $(this).data('id');
-		var user = $(this).data('user');
-		BootstrapDialog.show({
-			message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
-			type: BootstrapDialog.TYPE_DANGER,
-			size: BootstrapDialog.SIZE_SMALL,
-			cssClass: 'modal',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Administrador',
-			buttons: [{
-				label: 'Si',
-				cssClass: 'btn-danger',
-				action: function(dialog) {
-					$.ajax({
-						type: 'POST',
-						url: '/admin/delete',
-						data: {
-							'id':data,
-							'user':user
-						},
-						dataType: 'json',
-						success: function( result ){
-							if(result == 'success'){
-								location.reload();
-							}else{
-								$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    });
+    $('.deleteAdmin').on('click', function () {
+        var data = $(this).data('id');
+        var user = $(this).data('user');
+        BootstrapDialog.show({
+            message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+            type: BootstrapDialog.TYPE_DANGER,
+            size: BootstrapDialog.SIZE_SMALL,
+            cssClass: 'modal',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Administrador',
+            buttons: [{
+                    label: 'Si',
+                    cssClass: 'btn-danger',
+                    action: function (dialog) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/admin/delete',
+                            data: {
+                                'id': data,
+                                'user': user
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result == 'success') {
+                                    location.reload();
+                                } else {
+                                    $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL administrador tiene dependencias y no se puede eliminar.\
 									</div>');
-							}
-						}
-					});
-				}
-			},{
-				label:'No',
-				cssClass: 'btn-blue',
-				action: function(dialog) {
-					dialog.close();
-				}
-			}]
-		});
-	});
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    label: 'No',
+                    cssClass: 'btn-blue',
+                    action: function (dialog) {
+                        dialog.close();
+                    }
+                }]
+        });
+    });
 
-	$('#addTeacher').on('click',function(){
-		var form = '<div class = "msj">\
+    $('#addTeacher').on('click', function () {
+        var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
@@ -385,64 +385,64 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Profesor',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/teacher/insert',
-							data: {
-								'identification': $('#identification').val(),
-								'fullname': $('#fullname').val(),
-								'datebirth': $('#datebirth').val(),
-								'email': $('#email').val(),
-								'username': $('#username').val(),
-								'password': $('#password').val(),
-								'office': $('#office').val(),
-								'phone': $('#phone').val(),
-								'category': $('#category').val(),
-								'amounthour': $('#amounthour').val()
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Profesor',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/teacher/insert',
+                                data: {
+                                    'identification': $('#identification').val(),
+                                    'fullname': $('#fullname').val(),
+                                    'datebirth': $('#datebirth').val(),
+                                    'email': $('#email').val(),
+                                    'username': $('#username').val(),
+                                    'password': $('#password').val(),
+                                    'office': $('#office').val(),
+                                    'phone': $('#phone').val(),
+                                    'category': $('#category').val(),
+                                    'amounthour': $('#amounthour').val()
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> El profesor se creo con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL profesor ya existe o hay valores repetidos con otro profesor.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
-	});
-	$('.editTeacher').on('click',function(){
-		var data = $(this).data('id');
-		var user =  $(this).data('user');
-		var form = '<div class = "msj">\
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    });
+    $('.editTeacher').on('click', function () {
+        var data = $(this).data('id');
+        var user = $(this).data('user');
+        var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
@@ -532,130 +532,130 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-				$.ajax({
-					type: 'POST',
-					url: '/teacher/findbyid',
-					data: {
-						'id': data
-					},
-					dataType: 'json',
-					success: function( result ){
-						$.each(result, function(i,val){
-							$('#identification').val(val.identification);
-							$('#fullname').val(val.full_name);
-							$('#datebirth').val(val.date_of_birth);
-							$('#email').val(val.email);
-							$('#username').val(val.user_name);
-							$('#office').val(val.office);
-							$('#phone').val(val.phone_number);
-							$('#category').val(val.category);
-							$('#amounthour').val(val.amount_hour);
-						});
-					}
-				});
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Profesor',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/teacher/update',
-							data: {
-								'identification': $('#identification').val(),
-								'fullname': $('#fullname').val(),
-								'datebirth': $('#datebirth').val(),
-								'email': $('#email').val(),
-								'password': $('#password').val(),
-								'office': $('#office').val(),
-								'phone': $('#phone').val(),
-								'category': $('#category').val(),
-								'amounthour': $('#amounthour').val(),
-								'id':data,
-								'user':user
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+                $.ajax({
+                    type: 'POST',
+                    url: '/teacher/findbyid',
+                    data: {
+                        'id': data
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result, function (i, val) {
+                            $('#identification').val(val.identification);
+                            $('#fullname').val(val.full_name);
+                            $('#datebirth').val(val.date_of_birth);
+                            $('#email').val(val.email);
+                            $('#username').val(val.user_name);
+                            $('#office').val(val.office);
+                            $('#phone').val(val.phone_number);
+                            $('#category').val(val.category);
+                            $('#amounthour').val(val.amount_hour);
+                        });
+                    }
+                });
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Profesor',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/teacher/update',
+                                data: {
+                                    'identification': $('#identification').val(),
+                                    'fullname': $('#fullname').val(),
+                                    'datebirth': $('#datebirth').val(),
+                                    'email': $('#email').val(),
+                                    'password': $('#password').val(),
+                                    'office': $('#office').val(),
+                                    'phone': $('#phone').val(),
+                                    'category': $('#category').val(),
+                                    'amounthour': $('#amounthour').val(),
+                                    'id': data,
+                                    'user': user
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> El profesor se actualizó con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> Hay valores repetidos con otro profesor.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
-	});
-	$('.deleteTeacher').on('click',function(){
-		var data = $(this).data('id');
-		var user = $(this).data('user');
-		BootstrapDialog.show({
-			message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
-			type: BootstrapDialog.TYPE_DANGER,
-			size: BootstrapDialog.SIZE_SMALL,
-			cssClass: 'modal',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Profesor',
-			buttons: [{
-				label: 'Si',
-				cssClass: 'btn-danger',
-				action: function(dialog) {
-					$.ajax({
-						type: 'POST',
-						url: '/teacher/delete',
-						data: {
-							'id':data,
-							'user':user
-						},
-						dataType: 'json',
-						success: function( result ){
-							if(result == 'success'){
-								location.reload();
-							}else{
-								$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    });
+    $('.deleteTeacher').on('click', function () {
+        var data = $(this).data('id');
+        var user = $(this).data('user');
+        BootstrapDialog.show({
+            message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+            type: BootstrapDialog.TYPE_DANGER,
+            size: BootstrapDialog.SIZE_SMALL,
+            cssClass: 'modal',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Profesor',
+            buttons: [{
+                    label: 'Si',
+                    cssClass: 'btn-danger',
+                    action: function (dialog) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/teacher/delete',
+                            data: {
+                                'id': data,
+                                'user': user
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result == 'success') {
+                                    location.reload();
+                                } else {
+                                    $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL teacher tiene dependencias y no se puede eliminar.\
 									</div>');
-							}
-						}
-					});
-				}
-			},{
-				label:'No',
-				cssClass: 'btn-blue',
-				action: function(dialog) {
-					dialog.close();
-				}
-			}]
-		});
-	});
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    label: 'No',
+                    cssClass: 'btn-blue',
+                    action: function (dialog) {
+                        dialog.close();
+                    }
+                }]
+        });
+    });
 
-	$('#addStudent').on('click',function(){
-		var form = '<div class = "msj">\
+    $('#addStudent').on('click', function () {
+        var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
@@ -724,62 +724,62 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Estudiante',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/student/insert',
-							data: {
-								'identification': $('#identification').val(),
-								'fullname': $('#fullname').val(),
-								'datebirth': $('#datebirth').val(),
-								'email': $('#email').val(),
-								'username': $('#username').val(),
-								'password': $('#password').val(),
-								'nickname': $('#nickname').val()
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Estudiante',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/student/insert',
+                                data: {
+                                    'identification': $('#identification').val(),
+                                    'fullname': $('#fullname').val(),
+                                    'datebirth': $('#datebirth').val(),
+                                    'email': $('#email').val(),
+                                    'username': $('#username').val(),
+                                    'password': $('#password').val(),
+                                    'nickname': $('#nickname').val()
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> El estudiante se creo con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL estudiante ya existe o hay valores repetidos con otro estudiante.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
 
-	});
-	$('.editStudent').on('click',function(){
-		var data = $(this).data('id');
-		var user =  $(this).data('user');
-		var form = '<div class = "msj">\
+    });
+    $('.editStudent').on('click', function () {
+        var data = $(this).data('id');
+        var user = $(this).data('user');
+        var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
@@ -848,124 +848,124 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-				$.ajax({
-					type: 'POST',
-					url: '/student/findbyid',
-					data: {
-						'id': data
-					},
-					dataType: 'json',
-					success: function( result ){
-						$.each(result, function(i,val){
-							$('#identification').val(val.identification);
-							$('#fullname').val(val.full_name);
-							$('#datebirth').val(val.date_of_birth);
-							$('#email').val(val.email);
-							$('#username').val(val.user_name);
-							$('#nickname').val(val.nickname);
-						});
-					}
-				});
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Estudiante',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/student/update',
-							data: {
-								'identification': $('#identification').val(),
-								'fullname': $('#fullname').val(),
-								'datebirth': $('#datebirth').val(),
-								'email': $('#email').val(),
-								'password': $('#password').val(),
-								'nickname': $('#nickname').val(),
-								'id':data,
-								'user':user
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+                $.ajax({
+                    type: 'POST',
+                    url: '/student/findbyid',
+                    data: {
+                        'id': data
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result, function (i, val) {
+                            $('#identification').val(val.identification);
+                            $('#fullname').val(val.full_name);
+                            $('#datebirth').val(val.date_of_birth);
+                            $('#email').val(val.email);
+                            $('#username').val(val.user_name);
+                            $('#nickname').val(val.nickname);
+                        });
+                    }
+                });
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Estudiante',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/student/update',
+                                data: {
+                                    'identification': $('#identification').val(),
+                                    'fullname': $('#fullname').val(),
+                                    'datebirth': $('#datebirth').val(),
+                                    'email': $('#email').val(),
+                                    'password': $('#password').val(),
+                                    'nickname': $('#nickname').val(),
+                                    'id': data,
+                                    'user': user
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> El estudiante se actualizó con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> Hay valores repetidos con otro estudiante.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
-	});
-	$('.deleteStudent').on('click',function(){
-		var data = $(this).data('id');
-		var user = $(this).data('user');
-		BootstrapDialog.show({
-			message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
-			type: BootstrapDialog.TYPE_DANGER,
-			size: BootstrapDialog.SIZE_SMALL,
-			cssClass: 'modal',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Estudiantes',
-			buttons: [{
-				label: 'Si',
-				cssClass: 'btn-danger',
-				action: function(dialog) {
-					$.ajax({
-						type: 'POST',
-						url: '/student/delete',
-						data: {
-							'id':data,
-							'user':user
-						},
-						dataType: 'json',
-						success: function( result ){
-							if(result == 'success'){
-								location.reload();
-							}else{
-								$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    });
+    $('.deleteStudent').on('click', function () {
+        var data = $(this).data('id');
+        var user = $(this).data('user');
+        BootstrapDialog.show({
+            message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+            type: BootstrapDialog.TYPE_DANGER,
+            size: BootstrapDialog.SIZE_SMALL,
+            cssClass: 'modal',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Estudiantes',
+            buttons: [{
+                    label: 'Si',
+                    cssClass: 'btn-danger',
+                    action: function (dialog) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/student/delete',
+                            data: {
+                                'id': data,
+                                'user': user
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result == 'success') {
+                                    location.reload();
+                                } else {
+                                    $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL estudiante tiene dependencias y no se puede eliminar.\
 									</div>');
-							}
-						}
-					});
-				}
-			},{
-				label:'No',
-				cssClass: 'btn-blue',
-				action: function(dialog) {
-					dialog.close();
-				}
-			}]
-		});
-	});
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    label: 'No',
+                    cssClass: 'btn-blue',
+                    action: function (dialog) {
+                        dialog.close();
+                    }
+                }]
+        });
+    });
 
-	$('#addCareer').on('click',function(){
-		var form = '<div class = "msj">\
+    $('#addCareer').on('click', function () {
+        var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
@@ -1009,58 +1009,58 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Carrera',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/career/insert',
-							data: {
-								code: $('#code').val(),
-								name: $('#name').val(),
-								credits: $('#credits').val(),
-								amount: $('#amount').val(),
-								semester: $('#semesters').val()
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Carrera',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/career/insert',
+                                data: {
+                                    code: $('#code').val(),
+                                    name: $('#name').val(),
+                                    credits: $('#credits').val(),
+                                    amount: $('#amount').val(),
+                                    semester: $('#semesters').val()
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> La carrera se creo con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL carrera ya existe o hay valores repetidos con otro estudiante.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
-	});
-	$('.editCareer').on('click',function(){
-		var data = $(this).data('id');
-		var form = '<div class = "msj">\
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    });
+    $('.editCareer').on('click', function () {
+        var data = $(this).data('id');
+        var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
@@ -1104,119 +1104,120 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-				$.ajax({
-					type: 'POST',
-					url: '/career/findbyid',
-					data: {
-						'id': data
-					},
-					dataType: 'json',
-					success: function( result ){
-						$.each(result, function(i,val){
-							$('#code').val(val.code);
-							$('#name').val(val.name);
-							$('#credits').val(val.quantity_credits);
-							$('#amount').val(val.amount);
-							$('#semesters').val(val.quantity_semester);
-						});
-					}
-				});
-			},onhidden:function(){
-				location.reload();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Carrera',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					$('#form1').parsley().validate();
-					if( $('#form1').parsley().isValid()){
-						$.ajax({
-							type: 'POST',
-							url: '/career/update',
-							data: {
-								code: $('#code').val(),
-								name: $('#name').val(),
-								credits: $('#credits').val(),
-								amount: $('#amount').val(),
-								semester: $('#semesters').val(),
-								id: data
-							},
-							dataType: 'json',
-							success: function( result ){
-								if(result == 'success'){
-									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+                $.ajax({
+                    type: 'POST',
+                    url: '/career/findbyid',
+                    data: {
+                        'id': data
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result, function (i, val) {
+                            $('#code').val(val.code);
+                            $('#name').val(val.name);
+                            $('#credits').val(val.quantity_credits);
+                            $('#amount').val(val.amount);
+                            $('#semesters').val(val.quantity_semester);
+                        });
+                    }
+                });
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Carrera',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/career/update',
+                                data: {
+                                    code: $('#code').val(),
+                                    name: $('#name').val(),
+                                    credits: $('#credits').val(),
+                                    amount: $('#amount').val(),
+                                    semester: $('#semesters').val(),
+                                    id: data
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> La carrera se actualizó con éxito.\
 									</div>');
-								}else{
-									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> EL carrera ya existe o hay valores repetidos con otro estudiante.\
 									</div>');
-								}
-							}
-						});
-					}
-				}
-			}]
-		});
-	});
-	$('.deleteCareer').on('click',function(){
-		var data = $(this).data('id');
-		BootstrapDialog.show({
-			message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
-			type: BootstrapDialog.TYPE_DANGER,
-			size: BootstrapDialog.SIZE_SMALL,
-			cssClass: 'modal',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Estudiantes',
-			buttons: [{
-				label: 'Si',
-				cssClass: 'btn-danger',
-				action: function(dialog) {
-					$.ajax({
-						type: 'POST',
-						url: '/career/delete',
-						data: {
-							'id':data,
-						},
-						dataType: 'json',
-						success: function( result ){
-							if(result == 'success'){
-								location.reload();
-							}else{
-								$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    });
+    $('.deleteCareer').on('click', function () {
+        var data = $(this).data('id');
+        BootstrapDialog.show({
+            message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+            type: BootstrapDialog.TYPE_DANGER,
+            size: BootstrapDialog.SIZE_SMALL,
+            cssClass: 'modal',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Estudiantes',
+            buttons: [{
+                    label: 'Si',
+                    cssClass: 'btn-danger',
+                    action: function (dialog) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/career/delete',
+                            data: {
+                                'id': data,
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result == 'success') {
+                                    location.reload();
+                                } else {
+                                    $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Oops!</strong> La carrera tiene dependencias y no se puede eliminar.\
 									</div>');
-							}
-						}
-					});
-				}
-			},{
-				label:'No',
-				cssClass: 'btn-blue',
-				action: function(dialog) {
-					dialog.close();
-				}
-			}]
-		});
-	});
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    label: 'No',
+                    cssClass: 'btn-blue',
+                    action: function (dialog) {
+                        dialog.close();
+                    }
+                }]
+        });
+    });
 
-	$('#addSubject').on('click',function(){
-		var form = '<form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+    $('#addSubject').on('click', function () {
+        var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
         <div class="form-group">\
@@ -1284,31 +1285,245 @@ $(document).ready(function(){
         </div>\
         </div>\
             </form>';
-		BootstrapDialog.show({
-			onshown:function(){
-				$('#form1').parsley();
-			},
-			message: form,
-			type: BootstrapDialog.TYPE_DEFAULT,
-			cssClass: 'md-row-dialog',
-			closable: true,
-			closeByBackdrop: false,
-			closeByKeyboard: false,
-			title: 'Datos Materia',
-			buttons: [{
-				label: 'Guardar',
-				cssClass: 'btn-default',
-				action: function(dialog) {
-					if( $('#form1').parsley().isValid()){
-						alert();
-					}else{
-						dialog.getModalContent().find('form').submit();
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Materia',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/subject/insert',
+                                data: {
+                                    code: $('#code').val(),
+                                    name: $('#name').val(),
+                                    credits: $('#credits').val(),
+                                    cycle: $('#cycle').val(),
+                                    room: $('#room').val(),
+                                    description: $('#description').val(),
+                                    hours: $('#hours').val(),
+                                    place: $('#place').val()
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> La materia se creo con éxito.\
+									</div>');
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> La materia ya existe o hay valores repetidos con otra materia.\
+									</div>');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
 
-					}
+    });
+    $('.editSubject').on('click', function () {
+        var data = $(this).data('id');
+        var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+            <div class="row">\
+        <div class="col-md-4">\
+        <div class="form-group">\
+        <label class="control-label" for="code">\
+        Código</label>\
+        <input type="text" readonly name="code" class="form-control" placeholder="" id="code" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-8">\
+        <div class="form-group">\
+        <label class="control-label" for="name">\
+        Nombre</label>\
+        <input type="text" class="form-control" placeholder="" id="name" required>\
+        </div>\
+        </div>\
+        </div>\
+       <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="credits">\
+        Créditos</label>\
+        <input type="text" name="credits" class="form-control" placeholder="" id="credits" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="cycles">\
+        Ciclos</label>\
+        <input type="text" class="form-control" placeholder="" id="cycles" required>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-12">\
+        <div class="form-group">\
+        <label class="control-label" for="room">\
+        Aula</label>\
+        <input type="text" name="room" class="form-control" placeholder="" id="room" required/>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="description">\
+        Descripción</label>\
+        <textarea name="description" class="form-control" placeholder="" id="description" required></textarea>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="hours">\
+        Horas semanales</label>\
+        <input type="text" class="form-control" placeholder="" id="hours" required>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-12">\
+        <div class="form-group">\
+        <label class="control-label" for="places">\
+        Cupos disponibles</label>\
+        <input type="text" name="places" class="form-control"  placeholder="" id="places"/>\
+        </div>\
+        </div>\
+        </div>\
+            </form>';
+        BootstrapDialog.show({
+            onshown: function () {
+                $('#form1').parsley();
+                $.ajax({
+                    type: 'POST',
+                    url: '/subject/findbyid',
+                    data: {
+                        'id': data
+                    },
+                    dataType: 'json',
+                    success: function (result) {
+                        $.each(result, function (i, val) {
+                            $('#code').val(val.code);
+                            $('#name').val(val.name);
+                            $('#credits').val(val.credits);
+                            $('#cycle').val(val.cycle);
+                            $('#room').val(val.room);
+                            $('#description').val(val.description);
+                            $('#hours').val(val.weekly_hours);
+                            $('#place').val(val.place_available);
+                        });
+                    }
+                });
+            }, onhidden: function () {
+                location.reload();
+            },
+            message: form,
+            type: BootstrapDialog.TYPE_DEFAULT,
+            cssClass: 'md-row-dialog',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Materia',
+            buttons: [{
+                    label: 'Guardar',
+                    cssClass: 'btn-default',
+                    action: function (dialog) {
+                        $('#form1').parsley().validate();
+                        if ($('#form1').parsley().isValid()) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/subject/update',
+                                data: {
+                                    code: $('#code').val(),
+                                    name: $('#name').val(),
+                                    credits: $('#credits').val(),
+                                    cycle: $('#cycle').val(),
+                                    room: $('#room').val(),
+                                    description: $('#description').val(),
+                                    hours: $('#hours').val(),
+                                    place: $('#place').val(),
+                                    id: data
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    if (result == 'success') {
+                                        $('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> La materia se actualiz� con éxito.\
+									</div>');
+                                    } else {
+                                        $('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> La materia ya existe o hay valores repetidos con otra materia.\
+									</div>');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
 
-				}
-			}]
-		});
-
-	});
+    });
+    $('.deleteSubject').on('click', function () {
+        var data = $(this).data('id');
+        BootstrapDialog.show({
+            message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+            type: BootstrapDialog.TYPE_DANGER,
+            size: BootstrapDialog.SIZE_SMALL,
+            cssClass: 'modal',
+            closable: true,
+            closeByBackdrop: false,
+            closeByKeyboard: false,
+            title: 'Datos Estudiantes',
+            buttons: [{
+                    label: 'Si',
+                    cssClass: 'btn-danger',
+                    action: function (dialog) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/subject/delete',
+                            data: {
+                                'id': data,
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result == 'success') {
+                                    location.reload();
+                                } else {
+                                    $('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> La materia tiene dependencias y no se puede eliminar.\
+									</div>');
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    label: 'No',
+                    cssClass: 'btn-blue',
+                    action: function (dialog) {
+                        dialog.close();
+                    }
+                }]
+        });
+    });
 });
