@@ -9,7 +9,7 @@ class AdminModel extends DbTables {
 	
 	static function getAll(){
 		$db = new DbTables();
-		$db->query('SELECT p.*, a.id_admin, a.type FROM tbl_admin a, tbl_person p WHERE a.id_person = p.id_person');
+		$db->query('SELECT p.*, a.id_admin, a.type FROM tbl_admin a, tbl_person p WHERE a.type <> "SUPER ADMIN" AND a.id_person = p.id_person');
 		return $db->query_result();
 	}
 
