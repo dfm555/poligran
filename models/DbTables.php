@@ -33,7 +33,7 @@ class DbTables {
 
 		$this->result = mysqli_query($this->conexion, $query) or die(mysqli_error($this->conexion));
 		if(!$this->result) {
-			return false;
+			return mysql_errno();
 		}else {
 			return true;
 		}

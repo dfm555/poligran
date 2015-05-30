@@ -1190,7 +1190,7 @@ $(document).ready(function(){
 						type: 'POST',
 						url: '/career/delete',
 						data: {
-							'id':data,
+							'id':data
 						},
 						dataType: 'json',
 						success: function( result ){
