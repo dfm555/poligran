@@ -1190,7 +1190,7 @@ $(document).ready(function(){
 						type: 'POST',
 						url: '/career/delete',
 						data: {
-							'id':data,
+							'id':data
 						},
 						dataType: 'json',
 						success: function( result ){
@@ -1215,8 +1215,9 @@ $(document).ready(function(){
 		});
 	});
 
-	$('#addSubject').on('click',function(){
-		var form = '<form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+	$('#addSubject').on('click', function () {
+		var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
             <div class="row">\
         <div class="col-md-4">\
         <div class="form-group">\
@@ -1285,8 +1286,10 @@ $(document).ready(function(){
         </div>\
             </form>';
 		BootstrapDialog.show({
-			onshown:function(){
+			onshown: function () {
 				$('#form1').parsley();
+			}, onhidden: function () {
+				location.reload();
 			},
 			message: form,
 			type: BootstrapDialog.TYPE_DEFAULT,
@@ -1298,17 +1301,229 @@ $(document).ready(function(){
 			buttons: [{
 				label: 'Guardar',
 				cssClass: 'btn-default',
-				action: function(dialog) {
-					if( $('#form1').parsley().isValid()){
-						alert();
-					}else{
-						dialog.getModalContent().find('form').submit();
-
+				action: function (dialog) {
+					$('#form1').parsley().validate();
+					if ($('#form1').parsley().isValid()) {
+						$.ajax({
+							type: 'POST',
+							url: '/subject/insert',
+							data: {
+								code: $('#code').val(),
+								name: $('#name').val(),
+								credits: $('#credits').val(),
+								cycle: $('#cycles').val(),
+								room: $('#room').val(),
+								description: $('#description').val(),
+								hours: $('#hours').val(),
+								place: $('#places').val()
+							},
+							dataType: 'json',
+							success: function (result) {
+								if (result == 'success') {
+									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> La materia se creo con éxito.\
+									</div>');
+								} else {
+									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> La materia ya existe o hay valores repetidos con otra materia.\
+									</div>');
+								}
+							}
+						});
 					}
-
 				}
 			}]
 		});
 
+	});
+	$('.editSubject').on('click', function () {
+		var data = $(this).data('id');
+		var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+            <div class="row">\
+        <div class="col-md-4">\
+        <div class="form-group">\
+        <label class="control-label" for="code">\
+        Código</label>\
+        <input type="text" readonly name="code" class="form-control" placeholder="" id="code" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-8">\
+        <div class="form-group">\
+        <label class="control-label" for="name">\
+        Nombre</label>\
+        <input type="text" class="form-control" placeholder="" id="name" required>\
+        </div>\
+        </div>\
+        </div>\
+       <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="credits">\
+        Créditos</label>\
+        <input type="text" name="credits" class="form-control" placeholder="" id="credits" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="cycles">\
+        Ciclos</label>\
+        <input type="text" class="form-control" placeholder="" id="cycles" required>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-12">\
+        <div class="form-group">\
+        <label class="control-label" for="room">\
+        Aula</label>\
+        <input type="text" name="room" class="form-control" placeholder="" id="room" required/>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="description">\
+        Descripción</label>\
+        <textarea name="description" class="form-control" placeholder="" id="description" required></textarea>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="hours">\
+        Horas semanales</label>\
+        <input type="text" class="form-control" placeholder="" id="hours" required>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-12">\
+        <div class="form-group">\
+        <label class="control-label" for="places">\
+        Cupos disponibles</label>\
+        <input type="text" name="places" class="form-control"  placeholder="" id="places"/>\
+        </div>\
+        </div>\
+        </div>\
+            </form>';
+		BootstrapDialog.show({
+			onshown: function () {
+				$('#form1').parsley();
+				$.ajax({
+					type: 'POST',
+					url: '/subject/findbyid',
+					data: {
+						'id': data
+					},
+					dataType: 'json',
+					success: function (result) {
+						$.each(result, function (i, val) {
+							$('#code').val(val.code);
+							$('#name').val(val.name);
+							$('#credits').val(val.quantity_credits);
+							$('#cycles').val(val.cycle);
+							$('#room').val(val.room);
+							$('#description').val(val.description);
+							$('#hours').val(val.weekly_hours);
+							$('#places').val(val.place_available);
+						});
+					}
+				});
+			}, onhidden: function () {
+				location.reload();
+			},
+			message: form,
+			type: BootstrapDialog.TYPE_DEFAULT,
+			cssClass: 'md-row-dialog',
+			closable: true,
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			title: 'Datos Materia',
+			buttons: [{
+				label: 'Guardar',
+				cssClass: 'btn-default',
+				action: function (dialog) {
+					$('#form1').parsley().validate();
+					if ($('#form1').parsley().isValid()) {
+						$.ajax({
+							type: 'POST',
+							url: '/subject/update',
+							data: {
+								code: $('#code').val(),
+								name: $('#name').val(),
+								credits: $('#credits').val(),
+								cycle: $('#cycles').val(),
+								room: $('#room').val(),
+								description: $('#description').val(),
+								hours: $('#hours').val(),
+								place: $('#places').val(),
+								id: data
+							},
+							dataType: 'json',
+							success: function (result) {
+								if (result == 'success') {
+									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> La materia se actualiz&oacute; con éxito.\
+									</div>');
+								} else {
+									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> La materia ya existe o hay valores repetidos con otra materia.\
+									</div>');
+								}
+							}
+						});
+					}
+				}
+			}]
+		});
+
+	});
+	$('.deleteSubject').on('click', function () {
+		var data = $(this).data('id');
+		BootstrapDialog.show({
+			message: '<div class="msj"></div><p>Está seguro de eliminar este registro?</p>',
+			type: BootstrapDialog.TYPE_DANGER,
+			size: BootstrapDialog.SIZE_SMALL,
+			cssClass: 'modal',
+			closable: true,
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			title: 'Datos Estudiantes',
+			buttons: [{
+				label: 'Si',
+				cssClass: 'btn-danger',
+				action: function (dialog) {
+					$.ajax({
+						type: 'POST',
+						url: '/subject/delete',
+						data: {
+							'id': data
+						},
+						dataType: 'json',
+						success: function (result) {
+							if (result == 'success') {
+								location.reload();
+							} else {
+								$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> La materia tiene dependencias y no se puede eliminar.\
+									</div>');
+							}
+						}
+					});
+				}
+			}, {
+				label: 'No',
+				cssClass: 'btn-blue',
+				action: function (dialog) {
+					dialog.close();
+				}
+			}]
+		});
 	});
 });

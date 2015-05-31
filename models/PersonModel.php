@@ -5,13 +5,14 @@
  * Date: 26/04/15
  * Time: 05:26 PM
  */
-class PersonModel extends DbTables {
+class PersonModel extends MasterModel {
+	static $table = 'tbl_person';
+
 	static function login($username, $password){
-		$db = new DbTables();
-		$user = $db->cleanSQL($username);
-		$pass = $db->cleanSQL($password);
-		$db->query('SELECT * FROM tbl_person WHERE user_name = "'.$user.'" AND password = "'.$pass.'"');
-		$result = $db->query_result()[0];
+		$user = static::cleanSQL($username);
+		$pass = static::cleanSQL($password);
+		static::query('SELECT * FROM '.static::$table.' WHERE user_name = "'.$user.'" AND password = "'.$pass.'"');
+		$result = static::query_result()[0];
 		if(is_array($result)){
 			$_SESSION['userdata'] = array(
 				'id'=> $result['id_person'],
@@ -27,8 +28,7 @@ class PersonModel extends DbTables {
 		}
 	}
 	static function insert($data){
-		$db = new DbTables();
-		$db->query('INSERT INTO tbl_person(
+		static::query('INSERT INTO '.static::$table.'(
 						identification, full_name, date_of_birth, email, user_name, password
 						) VALUES (
 						"'.$data['identification'].'",
@@ -38,11 +38,11 @@ class PersonModel extends DbTables {
 						"'.$data['user_name'].'",
 						"'.$data['password'].'"
 						)');
-		return $db->query_insert_id();
+		return static::query_insert_id();
 	}
+
 	static function update($data){
-		$db = new DbTables();
-		$db->query('UPDATE tbl_person SET
+		static::query('UPDATE '.static::$table.' SET
 						full_name = "'.$data['fullname'].'",
 						date_of_birth = "'.$data['datebirth'].'",
 						email = "'.$data['email'].'"
@@ -51,16 +51,14 @@ class PersonModel extends DbTables {
 	}
 
 	static function updatePassword($data){
-		$db = new DbTables();
-		$db->query('UPDATE tbl_person SET
+		static::query('UPDATE '.static::$table.' SET
 						password = "'.$data['password'].'"
 						WHERE id_person = "'.$data['id_person'].'"');
 		return true;
 	}
 
 	static function delete($data) {
-		$db = new DbTables();
-		$db->query('DELETE FROM tbl_person WHERE id_person = "' . $data['id_person'] . '"');
+		static::query('DELETE FROM '.static::$table.' WHERE id_person = "' . $data['id_person'] . '"');
 		return true;
 	}
 }

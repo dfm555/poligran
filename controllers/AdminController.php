@@ -5,18 +5,22 @@
  * Date: 25/04/15
  * Time: 05:54 PM
  */
+class AdminController extends MasterController{
+	public function getIndex (){
 
-$action = (isset($_GET['action']))?$_GET['action']:'index';
-switch($action){
-	case 'index':
-		$admins = AdminModel::getAll();
-		require_once BASE_VIEWS.'admin/index.php';
-		break;
-	case 'findbyid':
-		$adminData = AdminModel::findbyid($_POST['id']);
+		if(isset($_SESSION['userdata'])){
+			$admins['admins'] = AdminModel::getAll();
+			View::load('admin/index', $admins);
+		}else{
+			Redirect::to('/index/login');
+		}
+	}
+	public function postFindByid (){
+		$adminData = AdminModel::findbyidMultiple($_POST['id']);
 		echo json_encode($adminData);
-		break;
-	case 'insert':
+
+	}
+	public function postInsert (){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
@@ -40,10 +44,10 @@ switch($action){
 				echo json_encode('error');
 			}
 		}else{
-			header('location: /admin/index');
+			Redirect::to('/admin/index');
 		}
-		break;
-	case 'update':
+	}
+	public function postUpdate (){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
@@ -68,10 +72,10 @@ switch($action){
 				echo json_encode('error');
 			}
 		}else{
-			header('location: /admin/index');
+			Redirect::to('/admin/index');
 		}
-		break;;
-	case 'delete':
+	}
+	public function postDelete (){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
@@ -86,7 +90,7 @@ switch($action){
 				echo json_encode('error');
 			}
 		}else{
-			header('location: /admin/index');
+			Redirect::to('/admin/index');
 		}
-		break;
+	}
 }

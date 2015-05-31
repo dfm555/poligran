@@ -25,7 +25,7 @@
 						<tr>
 							<td><?php echo $count ?></td>
 							<td><?php echo $rowCareer['code'] ?></td>
-							<td><?php echo $rowCareer['name'] ?></td>
+							<td><?php echo utf8_encode($rowCareer['name']) ?></td>
 							<td><?php echo $rowCareer['quantity_credits'] ?></td>
 							<td><?php echo $rowCareer['amount'] ?></td>
 							<td><?php echo $rowCareer['quantity_semester'] ?></td>

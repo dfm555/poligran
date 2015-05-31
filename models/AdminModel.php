@@ -5,17 +5,17 @@
  * Date: 26/04/15
  * Time: 05:23 PM
  */
-class AdminModel extends DbTables {
+class AdminModel extends MasterModel {
+
+	static $table = 'tbl_admin';
 	
 	static function getAll(){
-		$db = new DbTables();
-		$db->query('SELECT p.*, a.id_admin, a.type FROM tbl_admin a, tbl_person p WHERE a.type <> "SUPER ADMIN" AND a.id_person = p.id_person');
-		return $db->query_result();
+		static::query('SELECT p.*, a.id_admin, a.type FROM tbl_admin a, tbl_person p WHERE a.type <> "SUPER ADMIN" AND a.id_person = p.id_person');
+		return static::query_result();
 	}
 
-	static function findbyid($id){
-		$db = new DbTables();
-		$db->query('SELECT p.id_person,
+	static function findbyidMultiple($id){
+		static::query('SELECT p.id_person,
 						p.identification,
 						p.full_name,
 						p.date_of_birth,
@@ -26,13 +26,12 @@ class AdminModel extends DbTables {
  						FROM tbl_admin a, tbl_person p
  						WHERE a.id_person = p.id_person
  						AND p.id_person = '.(int)$id);
-		return $db->query_result();
+		return static::query_result();
 	}
-			
+
 	static function dataAdmin($id_person){
-		$db = new DbTables();
-		$db->query('SELECT * FROM tbl_admin WHERE id_admin ='.(int)$id_person);
-		$result = $db->query_result()[0];
+		static::query('SELECT * FROM tbl_admin WHERE id_admin ='.(int)$id_person);
+		$result = static::query_result()[0];
 		if(is_array($result)){
 			array_push($_SESSION['userdata'], array(
 				'rol'=> 'admin',
@@ -44,13 +43,12 @@ class AdminModel extends DbTables {
 		}
 	}
 	static function insert($data){
-		$db = new DbTables();
-		$db->query('INSERT INTO tbl_admin (type, id_person) VALUES ("'.$data['type'].'", '.$data['id_person'].')');
-		return $db->query_insert_id();
+		static::query('INSERT INTO '.static::$table.' (type, id_person) VALUES ("'.$data['type'].'", '.$data['id_person'].')');
+		return true;
 	}
+
 	static function delete($data){
-		$db = new DbTables();
-		$db->query('DELETE FROM tbl_admin WHERE id_admin = "'.$data['id_admin'].'"');
+		static::query('DELETE FROM '.static::$table.' WHERE id_admin = "'.$data['id_admin'].'"');
 		return true;
 	}
 }

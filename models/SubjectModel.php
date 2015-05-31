@@ -6,47 +6,40 @@
  * Date: 26/04/15
  * Time: 05:26 PM
  */
-class SubjectModel extends DbTables {
+class SubjectModel extends MasterModel {
 
-    static function getAll() {
-        $db = new DbTables();
-        $db->query('SELECT * FROM tbl_subject');
-        return $db->query_result();
-    }
+	static $table = 'tbl_subject';
 
-    static function findbyid($id) {
-        $db = new DbTables();
-        $db->query('SELECT *
+	static function findbyid($id) {
+		static::query('SELECT *
                     FROM tbl_subject
                     WHERE id_subject =' . (int) $id);
-        return $db->query_result();
-    }
+		return static::query_result();
+	}
 
-    static function insert($data) {
-        $db = new DbTables();
-        $db->query('INSERT INTO tbl_subject (code,
+	static function insert($data) {
+		static::query('INSERT INTO tbl_subject (code,
 						name,
 						quantity_credits,
 						cycle,
 						room,
-                                                description,
-                                                weekly_hours,
-                                                place_available)
+                  description,
+                  weekly_hours,
+                  place_available)
 			VALUES (
 				"' . $data['code'] . '",
 				"' . $data['name'] . '",
 				"' . $data['credits'] . '",
 				"' . $data['cycle'] . '",
 				"' . $data['room'] . '",
-                                "' . $data['description'] . '",
-                                "' . $data['hours'] . '",
-                                "' . $data['place'] . '")');
-        return $db->query_insert_id();
-    }
+				"' . $data['description'] . '",
+				"' . $data['hours'] . '",
+            "' . $data['place'] . '")');
+		return static::query_insert_id();
+	}
 
-    static function update($data) {
-        $db = new DbTables();
-        $db->query('UPDATE tbl_subject SET name ="' . $data['name'] . '",
+	static function update($data) {
+		static::query('UPDATE tbl_subject SET name ="' . $data['name'] . '",
 		quantity_credits ="' . $data['credits'] . '",
 		cycle ="' . $data['cycle'] . '",
 		room ="' . $data['room'] . '",
@@ -54,13 +47,12 @@ class SubjectModel extends DbTables {
                 weekly_hours ="' . $data['hours'] . '",
                 place_available ="' . $data['place'] . '"
 			WHERE id_subject = "' . $data['id_subject'] . '"');
-        return true;
-    }
+		return true;
+	}
 
-    static function delete($data) {
-        $db = new DbTables();
-        $db->query('DELETE FROM tbl_subject WHERE id_subject = "' . $data['id_subject'] . '"');
-        return true;
-    }
+	static function delete($data) {
+		static::query('DELETE FROM tbl_subject WHERE id_subject = "' . $data['id_subject'] . '"');
+		return true;
+	}
 
 }

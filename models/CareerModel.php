@@ -5,24 +5,18 @@
  * Date: 26/04/15
  * Time: 05:26 PM
  */
-class CareerModel extends DbTables {
-	static function getAll(){
-		$db = new DbTables();
-		$db->query('SELECT * FROM tbl_career');
-		return $db->query_result();
-	}
+class CareerModel extends MasterModel {
+	static $table = 'tbl_career';
 
 	static function findbyid($id){
-		$db = new DbTables();
-		$db->query('SELECT *
+		static::query('SELECT *
  						FROM tbl_career
  						WHERE id_career ='.(int)$id);
-		return $db->query_result();
+		return static::query_result();
 	}
 
 	static function insert($data){
-		$db = new DbTables();
-		$db->query('INSERT INTO tbl_career (code,
+		static::query('INSERT INTO tbl_career (code,
 						name,
 						quantity_credits,
 						amount,
@@ -33,11 +27,10 @@ class CareerModel extends DbTables {
 				"'.$data['credits'].'",
 				"'.$data['amount'].'",
 				"'.$data['semester'].'")');
-		return $db->query_insert_id();
+		return static::query_insert_id();
 	}
 	static function update($data){
-		$db = new DbTables();
-		$db->query('UPDATE tbl_career SET name ="'.$data['name'].'",
+		static::query('UPDATE tbl_career SET name ="'.$data['name'].'",
 		quantity_credits ="'.$data['credits'].'",
 		amount ="'.$data['amount'].'",
 		quantity_semester ="'.$data['semester'].'"
@@ -45,8 +38,7 @@ class CareerModel extends DbTables {
 		return true;
 	}
 	static function delete($data){
-		$db = new DbTables();
-		$db->query('DELETE FROM tbl_career WHERE id_career = "'.$data['id_career'].'"');
+		static::query('DELETE FROM tbl_career WHERE id_career = "'.$data['id_career'].'"');
 		return true;
 	}
 }

@@ -5,17 +5,23 @@
  * Date: 25/04/15
  * Time: 05:54 PM
  */
-$action = (isset($_GET['action']))?$_GET['action']:'index';
-switch($action){
-	case 'index':
-		$students = StudentModel::getAll();
-		require_once BASE_VIEWS.'student/index.php';
-		break;
-	case 'findbyid':
-		$studentsData = StudentModel::findbyid($_POST['id']);
+
+class StudentController extends MasterController{
+	public function getIndex (){
+		if(isset($_SESSION['userdata'])){
+			$students['students'] = StudentModel::getAll();
+			View::load('student/index', $students);
+		}else{
+			Redirect::to('/index/login');
+		}
+	}
+
+	public function postfindbyid(){
+		$studentsData = StudentModel::findbyidMultiple($_POST['id']);
 		echo json_encode($studentsData);
-		break;
-	case 'insert':
+	}
+
+	public function postInsert(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
@@ -39,10 +45,11 @@ switch($action){
 				echo json_encode('error');
 			}
 		}else{
-			header('location: /student/index');
+			Redirect::to('/student/index');
 		}
-		break;
-	case 'update':
+	}
+
+	public function postupdate(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
@@ -72,10 +79,11 @@ switch($action){
 				echo json_encode('error');
 			}
 		}else{
-			header('location: /student/index');
+			Redirect::to('/student/index');
 		}
-		break;;
-	case 'delete':
+	}
+
+	public function postdelete(){
 		if($_SERVER['REQUEST_METHOD'] == 'POST'){
 			header('Content-type: application/json');
 			$dataPerson = array(
@@ -90,7 +98,7 @@ switch($action){
 				echo json_encode('error');
 			}
 		}else{
-			header('location: /student/index');
+			Redirect::to('/student/index');
 		}
-	break;
+	}
 }
