@@ -5,7 +5,7 @@
  * Date: 26/04/15
  * Time: 05:23 PM
  */
-class StudentModel extends MasterModel {
+class InscriptionModel extends MasterModel {
 	static $table = 'tbl_incription';
 
 	static function findbyidMultiple($id){
