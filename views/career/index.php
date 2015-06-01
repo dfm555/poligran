@@ -34,6 +34,9 @@
 									<button id="" data-id="<?php echo $rowCareer['id_career'] ?>" class="btn btn-blue editCareer">
 										<i class="fa fa-edit"></i>
 									</button>
+									<button id="" data-id="<?php echo $rowCareer['id_career'] ?>" class="btn btn-dark manageCareer">
+										<i class="fa fa-cog"></i>
+									</button>
 									<button id="" data-id="<?php echo $rowCareer['id_career'] ?>" class="btn btn-danger deleteCareer">
 										<i class="fa fa-trash-o"></i>
 									</button>

@@ -67,4 +67,8 @@ class CareerController extends MasterController{
 			Redirect::to('/career/index');
 		}
 	}
+
+	public function postMagane(){
+
+	}
 }

@@ -13,8 +13,8 @@
 					<th>Identificación</th>
 					<th>Nombre completo</th>
 					<th>Correo electrónico</th>
-					<th>Type</th>
-					<th>actions</th>
+					<th>Tipo</th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>

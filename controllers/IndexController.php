@@ -9,7 +9,20 @@
 class IndexController extends MasterController{
 	public function getIndex(){
 		if(isset($_SESSION['userdata'])){
-			View::load('index/dashboard');
+
+			$student = StudentModel::counRows();
+			$teacher = TeacherModel::counRows();
+			$career = CareerModel::counRows();
+			$subject = SubjectModel::counRows();
+
+			$dataCount = array(
+				'students'=>$student,
+				'teachers'=>$teacher,
+				'careers'=>$career,
+				'subjects'=>$subject
+			);
+
+			View::load('index/dashboard', $dataCount);
 		}else{
 			Redirect::to('/index/login');
 		}

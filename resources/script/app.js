@@ -964,6 +964,100 @@ $(document).ready(function(){
 		});
 	});
 
+	$('.manageCareer').on('click',function(){
+		var form = '<div class = "msj">\
+        </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
+            <div class="row">\
+        <div class="col-md-4">\
+        <div class="form-group">\
+        <label class="control-label" for="code">\
+        Código</label>\
+        <input type="text" name="code" class="form-control" placeholder="" id="code" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-8">\
+        <div class="form-group">\
+        <label class="control-label" for="name">\
+        Nombre</label>\
+        <input type="text" class="form-control" placeholder="" id="name" required>\
+        </div>\
+        </div>\
+        </div>\
+       <div class="row">\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="credits">\
+        Créditos</label>\
+        <input type="text" name="credits" class="form-control" placeholder="" id="credits" required/>\
+        </div>\
+        </div>\
+        <div class="col-md-6">\
+        <div class="form-group">\
+        <label class="control-label" for="amount">\
+        Valor semestre</label>\
+        <input type="text" class="form-control" placeholder="" id="amount"  required>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="row">\
+        <div class="col-md-12">\
+        <div class="form-group">\
+        <label class="control-label" for="semesters">\
+        Semestres</label>\
+        <input type="text" name="semesters" class="form-control" placeholder="" id="semesters" required/>\
+        </div>\
+        </div>\
+        </div>\
+            </form>';
+		BootstrapDialog.show({
+			onshown:function(){
+				$('#form1').parsley();
+			},onhidden:function(){
+				location.reload();
+			},
+			message: form,
+			type: BootstrapDialog.TYPE_DEFAULT,
+			cssClass: 'md-row-dialog',
+			closable: true,
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			title: 'Datos Carrera',
+			buttons: [{
+				label: 'Guardar',
+				cssClass: 'btn-default',
+				action: function(dialog) {
+					$('#form1').parsley().validate();
+					if( $('#form1').parsley().isValid()){
+						$.ajax({
+							type: 'POST',
+							url: '/career/insert',
+							data: {
+								code: $('#code').val(),
+								name: $('#name').val(),
+								credits: $('#credits').val(),
+								amount: $('#amount').val(),
+								semester: $('#semesters').val()
+							},
+							dataType: 'json',
+							success: function( result ){
+								if(result == 'success'){
+									$('.msj').html('<div class="alert alert-success alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Muy bien!</strong> La carrera se creo con éxito.\
+									</div>');
+								}else{
+									$('.msj').html('<div class="alert alert-danger alert-dismissable">\
+									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
+									<strong>Oops!</strong> EL carrera ya existe o hay valores repetidos con otro estudiante.\
+									</div>');
+								}
+							}
+						});
+					}
+				}
+			}]
+		});
+	});
 	$('#addCareer').on('click',function(){
 		var form = '<div class = "msj">\
         </div><form action=""  method="post"  name="form1" id="form1" data-parsley-validate><div class="">\
