@@ -76,4 +76,25 @@ class SubjectController extends MasterController {
 			Redirect::to('/subject/index');
 		}
 	}
+
+	public function postList() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			SubjectModel::all();
+			$listSubjects = SubjectModel::query_result();
+				echo json_encode($listSubjects);
+		}else {
+			Redirect::to('/subject/index');
+		}
+	}
+
+	public function postListByIdCareer() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			$listSubjects = CareerSubjectModel::listById(array('career'=>$_POST['career']));
+			echo json_encode($listSubjects);
+		}else {
+			Redirect::to('/subject/index');
+		}
+	}
 }

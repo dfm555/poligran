@@ -39,6 +39,7 @@
 <script src="<?php echo BASE_RESOURCES?>script/exporting.js"></script>
 <script src="<?php echo BASE_RESOURCES?>script/parsley.min.js"></script>
 <script src="<?php echo BASE_RESOURCES?>script/main.js"></script>
+<script src="<?php echo BASE_RESOURCES?>script/chosen.jquery.js"></script>
 <script src="<?php echo BASE_RESOURCES?>script/app.js"></script>
 </body>
 </html>

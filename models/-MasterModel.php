@@ -82,7 +82,7 @@ class MasterModel {
 		return $data;
 	}
 
-	static  function counRows(){
+	static  function countRows(){
 		static::query('SELECT COUNT(*) FROM '.static::$table.'');
 		return static::query_result()[0]['COUNT(*)'];
 	}

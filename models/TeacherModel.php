@@ -20,6 +20,17 @@ class TeacherModel extends MasterModel {
 		return static::query_result();
 	}
 
+	static function getAllList(){
+		static::query('SELECT p.full_name,
+			t.id_teacher,
+			t.office,
+			t.phone_number,
+			t.category,
+			t.amount_hour FROM tbl_teacher t, tbl_person p
+			WHERE t.id_person = p.id_person');
+		return static::query_result();
+	}
+
 	static function findByIdMultiple($id){
 		static::query('SELECT p.id_person,
 						p.identification,

@@ -67,4 +67,13 @@ class TeacherController extends MasterController{
 			header('location: /teacher/index');
 		}
 	}
+	public function postList() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			$listTeacher = TeacherModel::getAllList();
+			echo json_encode($listTeacher);
+		}else {
+			Redirect::to('/teacher/index');
+		}
+	}
 }

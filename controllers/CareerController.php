@@ -68,7 +68,37 @@ class CareerController extends MasterController{
 		}
 	}
 
-	public function postMagane(){
+	public function postManage() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			$data = array(
+				'career' => $_POST['career'],
+				'subject' => $_POST['subject'],
+				'teacher' => $_POST['teacher'],
+			);
 
+			$validate = CareerSubjectModel::insert($data);
+			$validate = TeacherCareerModel::insert($data);
+			$validate = TeacherSubjectModel::insert($data);
+
+			if($validate) {
+				echo json_encode('success');
+			}else {
+				echo json_encode('error');
+			}
+		}else {
+			Redirect::to('/career/index');
+		}
+	}
+
+	public function postList() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			CareerModel::all();
+			$listCareer = CareerModel::query_result();
+			echo json_encode($listCareer);
+		}else {
+			Redirect::to('/teacher/index');
+		}
 	}
 }

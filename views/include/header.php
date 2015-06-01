@@ -22,6 +22,7 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/pace.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/jquery.news-ticker.css">
 	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/bootstrap-dialog.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo BASE_RESOURCES?>styles/bootstrap-chosen.css">
 </head>
   <body>
     <?php $section = $_REQUEST['controller']; if(isset($_SESSION['userdata'])):?>

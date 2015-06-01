@@ -32,6 +32,9 @@
 									<button id="" data-user="<?php echo $rowStudent['id_student'] ?>" data-id="<?php echo $rowStudent['id_person'] ?>" class="btn btn-blue editStudent">
 										<i class="fa fa-edit"></i>
 									</button>
+									<button id="" data-user="<?php echo $rowStudent['id_student'] ?>" class="btn btn-dark manageStudent">
+										<i class="fa fa-cog"></i>
+									</button>
 									<button id="" data-user="<?php echo $rowStudent['id_student'] ?>" data-id="<?php echo $rowStudent['id_person'] ?>" class="btn btn-danger deleteStudent">
 										<i class="fa fa-trash-o"></i>
 									</button>

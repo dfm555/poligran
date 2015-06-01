@@ -7048,3 +7048,7 @@ textarea.parsley-error {
     /*opacity: 1;*/
     display: none;
 }
+
+.table{
+  font-size: 13px;
+}

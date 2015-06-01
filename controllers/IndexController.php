@@ -10,10 +10,10 @@ class IndexController extends MasterController{
 	public function getIndex(){
 		if(isset($_SESSION['userdata'])){
 
-			$student = StudentModel::counRows();
-			$teacher = TeacherModel::counRows();
-			$career = CareerModel::counRows();
-			$subject = SubjectModel::counRows();
+			$student = StudentModel::countRows();
+			$teacher = TeacherModel::countRows();
+			$career = CareerModel::countRows();
+			$subject = SubjectModel::countRows();
 
 			$dataCount = array(
 				'students'=>$student,
