@@ -20,7 +20,9 @@ class CareerSubjectModel extends MasterModel{
 	}
 
 	static function listById($data){
-		static::query('SELECT s.* FROM tbl_subject s, tbl_career_tbl_subject cs  WHERE s.id_subject = cs.tbl_subject_id_subject AND cs.tbl_career_id_career ="'.$data['career'].'"');
+		static::query('SELECT s.* FROM tbl_subject s, tbl_career_tbl_subject cs
+							WHERE s.id_subject = cs.tbl_subject_id_subject
+							AND cs.tbl_career_id_career ="'.$data['career'].'"');
 		return static::query_result();
 	}
 

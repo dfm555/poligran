@@ -1481,14 +1481,18 @@ $(document).ready(function(){
      type: 'POST',
      url: '/student/subjects',
      data: {
+      student: student
      },
      dataType: 'json',
-     success: function( result ){
-      $.each(result, function(key,row){
-       $('#career').append('' +
-          '<option value="'+row['id_career']+'">'+row['name']+'</option>');
+     success: function( resultStudent ){
+      $.each(resultStudent, function(key,row){
+       $('#dataSubjectStudent tbody').append('<tr>' +
+          '<td>'+row['name']+'</td>' +
+          '<td>'+row['code']+'</td>' +
+          '<td>'+row['subject']+'</td>' +
+          '<td><button onclick="jQuery(this).parents(\'tr\').remove()" class="btn btn-danger btn-xs"><i class="fa fa-fw fa-trash-o"></i></button></td>' +
+          '</tr>');
       });
-      $(".chosen").chosen();
      }
     });
 
@@ -1559,6 +1563,25 @@ $(document).ready(function(){
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\
 									<strong>Muy bien!</strong> Datos almacenados.\
 									</div>');
+         $('#dataSubjectStudent tbody').html('');
+         $.ajax({
+          type: 'POST',
+          url: '/student/subjects',
+          data: {
+           student: student
+          },
+          dataType: 'json',
+          success: function( resultStudent ){
+           $.each(resultStudent, function(key,row){
+            $('#dataSubjectStudent tbody').append('<tr>' +
+               '<td>'+row['name']+'</td>' +
+               '<td>'+row['code']+'</td>' +
+               '<td>'+row['subject']+'</td>' +
+               '<td><button onclick="jQuery(this).parents(\'tr\').remove()" class="btn btn-danger btn-xs"><i class="fa fa-fw fa-trash-o"></i></button></td>' +
+               '</tr>');
+           });
+          }
+         });
         }else{
          $('.msj').html('<div class="alert alert-danger alert-dismissable">\
 									<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>\

@@ -101,4 +101,37 @@ class StudentController extends MasterController{
 			Redirect::to('/student/index');
 		}
 	}
+
+	public function postManage() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			$data = array(
+				'student' => $_POST['student'],
+				'subject' => $_POST['subject']
+			);
+
+			$validate = InscriptionModel::insert($data);
+
+			if($validate) {
+				echo json_encode('success');
+			}else {
+				echo json_encode('error');
+			}
+		}else {
+			Redirect::to('/student/index');
+		}
+	}
+
+	public function postSubjects() {
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			header('Content-type: application/json');
+			$data = array(
+				'student' => $_POST['student']
+			);
+			$validate = InscriptionModel::listById($data);
+			echo json_encode($validate);
+		}else {
+			Redirect::to('/student/index');
+		}
+	}
 }
